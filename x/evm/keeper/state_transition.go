@@ -282,13 +282,13 @@ func (k *Keeper) RefundGas(msg core.Message, leftoverGas uint64) error {
 	gasConsumed := msg.Gas() - leftoverGas
 
 	// Apply refund counter, capped to half of the used gas.
-	refund := gasConsumed / 2        // 44500
-	availableRefund := k.GetRefund() //20000
+	refund := gasConsumed / 2
+	availableRefund := k.GetRefund()
 	if refund > availableRefund {
 		refund = availableRefund
 	}
 
-	leftoverGas += refund // 21k
+	leftoverGas += refund
 
 	// safe check
 	if leftoverGas > msg.Gas() {
